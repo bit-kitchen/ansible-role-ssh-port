@@ -1,0 +1,9 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  gather_facts: yes
+  roles:
+    - name: ../..
+      ssh_port: 22
+      #gcp_project: ""
+      #gcp_service_account_email: ""

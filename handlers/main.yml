@@ -1,0 +1,6 @@
+---
+- name: Reload SSH config
+  become: yes
+  systemd:
+    name: sshd
+    state: reloaded

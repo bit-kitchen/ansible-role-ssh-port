@@ -1,0 +1,24 @@
+---
+- name: Change SSH port to {{ ssh_port }}
+  become: yes
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^\s*#?\s*Port\s+'
+    line: Port {{ ssh_port }}
+  notify: Reload SSH config
+
+- name: GCP Firewall
+  include_tasks: gcp.yml
+  when:
+    - "'google.internal.' in ansible_dns.search"
+    - gcp_project is defined
+    - gcp_service_account_email is defined
+
+- meta: flush_handlers
+
+- name: Validate new SSH port
+  local_action: >
+    wait_for
+    host={{ inventory_hostname }}
+    port={{ ssh_port }}
+    search_regex=SSH
