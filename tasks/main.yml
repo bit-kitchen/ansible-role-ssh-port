@@ -17,8 +17,8 @@
 - meta: flush_handlers
 
 - name: Validate new SSH port
-  local_action: >
-    wait_for
-    host={{ inventory_hostname }}
-    port={{ ssh_port }}
-    search_regex=SSH
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: "{{ ssh_port }}"
+    search_regex: SSH
+  delegate_to: localhost
