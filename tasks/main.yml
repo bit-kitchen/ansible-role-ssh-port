@@ -7,6 +7,16 @@
     line: Port {{ ssh_port }}
   notify: Reload SSH config
 
+- name: Configure SELinux
+  seport:
+    setype: ssh_port_t
+    proto: tcp
+    ports: "{{ ssh_port }}"
+  when:
+  - ansible_selinux is defined
+  - ansible_selinux|bool
+  - ansible_selinux.status == "enabled"
+
 - name: GCP Firewall
   include_tasks: gcp.yml
   when:
