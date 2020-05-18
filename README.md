@@ -1,7 +1,7 @@
 ansible-role-ssh-port
 =====================
 
-An ansible role that configures the port of SSH daemon and related SELinux port.
+An ansible role that configures the port of SSH daemon and related SELinux and firewalld settings.
 
 Requirements
 ------------

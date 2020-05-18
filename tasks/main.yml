@@ -17,6 +17,15 @@
   - ansible_selinux|bool
   - ansible_selinux.status == "enabled"
 
+- name: Configure firewalld
+  firewalld:
+    port: "{{ ssh_port }}/tcp"
+    state: enabled
+    permanent: yes
+    immediate: yes
+  # Not all systems have firewalld
+  ignore_errors: yes
+
 - name: GCP Firewall
   include_tasks: gcp.yml
   when:

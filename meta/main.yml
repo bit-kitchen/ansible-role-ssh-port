@@ -2,7 +2,7 @@ galaxy_info:
   author: bit_kitchen
   role_name: ssh_port
 
-  description: Configure SSH port and related SELinux port
+  description: Configure SSH port and related SELinux and firewalld settings
   license: MIT
 
   min_ansible_version: 2.4
