@@ -1,4 +1,7 @@
 ---
+- name: Gathering Service Facts
+  service_facts: {}
+
 - name: Change SSH port to {{ ssh_port }}
   become: yes
   lineinfile:
@@ -24,7 +27,9 @@
     permanent: yes
     immediate: yes
   # Not all systems have firewalld
-  ignore_errors: yes
+  when:
+  - services["firewalld.service"] is defined
+  - services["firewalld.service"].state == "running"
 
 - name: GCP Firewall
   include_tasks: gcp.yml
