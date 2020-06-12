@@ -1,6 +1,20 @@
 ---
-- name: Reload SSH config
+- name: Reload systemd service sshd
   become: yes
   systemd:
     name: sshd
     state: reloaded
+  when: >
+    ansible_service_mgr is not defined
+    or ansible_service_mgr == 'systemd'
+  listen: Reload SSH config
+
+- name: Reload SysVinit service ssh
+  become: yes
+  service:
+    name: ssh
+    state: reloaded
+  when: >
+    ansible_service_mgr is not defined
+    or ansible_service_mgr == 'sysvinit'
+  listen: Reload SSH config
