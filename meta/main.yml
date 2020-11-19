@@ -16,4 +16,5 @@ galaxy_info:
   galaxy_tags:
   - ssh
 
-dependencies: []
+dependencies:
+- bit_kitchen.open_port

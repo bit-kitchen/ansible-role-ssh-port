@@ -20,22 +20,12 @@
   - ansible_selinux|bool
   - ansible_selinux.status == "enabled"
 
-- name: Configure firewalld
-  firewalld:
-    port: "{{ ssh_port }}/tcp"
-    state: enabled
-    permanent: yes
-    immediate: yes
-  # Not all systems have firewalld
-  when:
-  - services["firewalld.service"] is defined
-  - services["firewalld.service"].state == "running"
-
-- name: GCP Firewall
-  include_tasks: gcp.yml
-  when:
-    - gcp_project is defined
-    - gcp_service_account_email is defined
+- name: Open port for SSH
+  include_role:
+    name: bit_kitchen.open_port
+  vars:
+    open_port: "{{ ssh_port }}"
+    open_protocol: tcp
 
 - meta: flush_handlers
 

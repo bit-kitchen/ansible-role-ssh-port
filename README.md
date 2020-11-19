@@ -18,7 +18,8 @@ ssh_port | 22
 Dependencies
 ------------
 
-None.
+* [`bit_kitchen.open_port`](https://github.com/bit-kitchen/ansible-role-open-port) for firewall configuration.
+
 
 Example Playbook
 ----------------
